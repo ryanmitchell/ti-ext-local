@@ -5,6 +5,7 @@ namespace Igniter\Local\Components;
 use Admin\Models\Locations_model;
 use App;
 use ApplicationException;
+use Carbon\Carbon;
 use DateTime;
 use Exception;
 use Igniter\Local\Classes\CoveredAreaCondition;
@@ -156,7 +157,7 @@ class LocalBox extends \System\Classes\BaseComponent
                 throw new ApplicationException(lang('igniter.local::default.alert_location_required'));
 
             $timeSlotDateTime = $timeIsAsap
-                ? $this->location->asapScheduleTimeslot(FALSE)
+                ? Carbon::now()
                 : make_carbon($timeSlotDate.' '.$timeSlotTime);
 
             if (!$this->location->checkOrderTime($timeSlotDateTime))
@@ -215,7 +216,7 @@ class LocalBox extends \System\Classes\BaseComponent
             $dateKey = $slot->format('Y-m-d');
             $hourKey = $slot->format('H:i');
             $dateValue = make_carbon($slot)->isoFormat(lang('system::lang.moment.day_format'));
-            $hourValue = make_carbon($slot)->isoFormat(lang('system::lang.moment.day_time_format_short'));
+            $hourValue = make_carbon($slot)->isoFormat(lang('system::lang.moment.time_format'));
 
             $parsed['dates'][$dateKey] = $dateValue;
             $parsed['hours'][$dateKey][$hourKey] = $hourValue;
@@ -240,12 +241,11 @@ class LocalBox extends \System\Classes\BaseComponent
         if (!$locationCurrent = $this->location->current())
             return;
 
-        // Makes sure the current active order type is offered by the location.
-        if (in_array($this->location->orderType(), $locationCurrent->availableOrderTypes()))
+        $defaultOrderType = $this->property('defaultOrderType', Locations_model::DELIVERY);
+        if (!in_array($defaultOrderType, $locationCurrent->availableOrderTypes()))
             return;
 
-        $this->location->updateOrderType(
-            $this->property('defaultOrderType', Locations_model::DELIVERY)
-        );
+        if (!$this->location->getSession('orderType'))
+            $this->location->updateOrderType($defaultOrderType);
     }
 }
