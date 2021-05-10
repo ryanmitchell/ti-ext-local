@@ -40,14 +40,12 @@ return [
     'text_condition_below_total' => '{amount} below {total}',
     'text_delivery_areas' => 'Delivery Areas',
     'text_delivery_map' => 'Delivery Map',
-    'text_working_hour' => '(%s - %s)',
+    'text_working_hour' => '%s - %s',
     'text_min_total' => 'Min. Order Amount',
     'text_no_min_total' => 'No Min. Order Amount',
 
     'text_categories' => 'Categories',
-    'text_view_categories' => 'View categories',
-    'text_clear' => 'Clear Selection',
-    'text_show_all' => 'Show All',
+    'text_all_categories' => 'All Categories',
 
     'text_only_delivery_is_available' => 'Offers delivery only, pick-up is not available.',
     'text_only_collection_is_available' => 'Offers pick-up only, delivery is not available.',
@@ -218,6 +216,8 @@ return [
         'text_settings' => 'Review Settings',
         'text_settings_description' => 'Enable/disable and configure reviews settings',
 
+        'text_chase_email' => 'Review chase email to customer',
+
         'column_location' => 'Location',
         'column_author' => 'Author',
         'column_sale_id' => 'Sale ID',
@@ -237,12 +237,15 @@ return [
 
         'label_allow_reviews' => 'Allow Reviews',
         'label_approve_reviews' => 'Approve Reviews',
+        'label_chase_reviews' => 'Chase Reviews',
+        'label_chase_reviews_after' => 'Chase after how many hours?',
 
         'text_tab_title_reviews' => 'Reviews',
 
         'help_allow_reviews' => 'Enable or disable new customer review entry and display of reviews on storefront',
         'help_approve_reviews' => 'Approve new review entry automatically or manually',
         'help_hints' => 'Used when adding reviews.',
+        'help_chase_reviews' => 'Send a follow up email when a review has not been submitted',
 
         'error_not_found_in_order' => 'The sale ID entered can not be found in orders',
         'error_not_found_in_reservation' => 'The sale ID entered can not be found in reservations',
